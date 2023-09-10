@@ -115,7 +115,9 @@ export const getDefaultAFFiNEConfig: () => AFFiNEConfig = () => {
           this.node.prod && (this.affine.beta || this.affine.canary),
       };
     },
-    https: false,
+    get https() {
+      return !this.node.dev;
+    },
     host: 'localhost',
     port: 3010,
     path: '',
@@ -173,7 +175,8 @@ export const getDefaultAFFiNEConfig: () => AFFiNEConfig = () => {
       fs: {
         path: join(homedir(), '.affine-storage'),
       },
-      quota: 10 * 1024 * 1024,
+      // 10GB
+      quota: 10 * 1024 * 1024 * 1024,
     },
     rateLimiter: {
       ttl: 60,
